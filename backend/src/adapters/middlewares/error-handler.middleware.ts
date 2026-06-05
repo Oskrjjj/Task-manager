@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
-import { AppError } from "../../../shared/errors/app-error.js";
+import { AppError } from "../../shared/errors/app-error.js";
 
 export const errorHandlerMiddleware = (
   error: unknown,
@@ -10,13 +10,13 @@ export const errorHandlerMiddleware = (
   if (error instanceof AppError) {
     res.status(error.statusCode).json({
       type: error.type,
-      message: error.message
+      message: error.message,
     });
     return;
   }
 
   res.status(500).json({
     type: "INFRASTRUCTURE_ERROR",
-    message: "internal server error"
+    message: "internal server error",
   });
 };
