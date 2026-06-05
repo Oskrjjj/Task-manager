@@ -1,0 +1,20 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: task-backend
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./backend/data:/app/data
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:4000
+    container_name: task-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
